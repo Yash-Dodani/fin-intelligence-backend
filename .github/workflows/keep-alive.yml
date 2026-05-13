@@ -1,0 +1,23 @@
+name: Keep Render Alive
+
+on:
+  schedule:
+    # Ping every 14 minutes to prevent Render free tier sleep (cold start)
+    - cron: '*/14 * * * *'
+  workflow_dispatch: # Allow manual trigger too
+
+jobs:
+  ping:
+    name: Ping Backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render Health Endpoint
+        run: |
+          echo "Pinging Render backend to keep it alive..."
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 https://fin-intelligence-backend.onrender.com/health)
+          echo "Response status: $STATUS"
+          if [ "$STATUS" = "200" ]; then
+            echo "Backend is alive!"
+          else
+            echo "Backend returned $STATUS - it may be starting up (this is normal)"
+          fi

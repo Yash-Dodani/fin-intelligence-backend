@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: stock-analysis-backend
+    env: docker
+    plan: free
+    region: singapore
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false

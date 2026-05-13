@@ -1,0 +1,12 @@
+fastapi
+uvicorn[standard]
+yfinance
+pandas
+lxml
+beautifulsoup4
+html5lib
+google-genai
+groq
+python-dotenv
+requests
+pytz
